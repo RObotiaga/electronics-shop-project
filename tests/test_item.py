@@ -18,3 +18,32 @@ def test_apply_discount():
     fish = Item('fish', 100, 5)
     fish.apply_discount()
     assert fish.price == 90  # 100 * 0.9
+
+def test_name_setter():
+    fish = Item('fish', 100, 5)
+    assert fish.name == 'fish'
+    fish.name = 'new_name'
+    assert fish.name == 'new_name'
+    try:
+        fish.name = 'very_long_name'  # Должно выбросить ValueError
+        assert False  # Если исключение не было выброшено, тест не пройден
+    except ValueError:
+        pass
+
+def test_instantiate_from_csv():
+    Item.all = []  # Сброс списка всех товаров перед каждым тестом
+    Item.instantiate_from_csv()
+    assert len(Item.all) == 5  # Проверяем, что экземпляры созданы
+    assert Item.all[0].name == 'Смартфон'  # Проверяем значения атрибутов
+    assert Item.all[0].price == 100
+    assert Item.all[0].quantity == 1
+    assert Item.all[1].name == 'Ноутбук'
+    assert Item.all[1].price == 1000
+    assert Item.all[1].quantity == 3
+
+def test_string_to_number():
+    assert Item.string_to_number('10') == 10.0
+    assert Item.string_to_number('3.14') == 3.14
+    assert Item.string_to_number('0.5') == 0.5
+    assert Item.string_to_number('-2') == -2.0
+    assert Item.string_to_number('100') == 100.0
