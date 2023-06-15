@@ -1,4 +1,4 @@
-import csv
+import csv, os
 
 class Item:
     """
@@ -50,7 +50,8 @@ class Item:
         """
         Инициализирует экземпляры класса Item данными из файла src/items.csv.
         """
-        with open('src/items.csv', 'r') as file:
+        Item.all = []
+        with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'items.csv'), 'r') as file:
             reader = csv.DictReader(file)
             for row in reader:
                 name = row['name']
@@ -64,6 +65,6 @@ class Item:
         Возвращает число из числа-строки.
 
         :param value: Число-строка.
-        :return: Преобразованное число.
+        :return: int Преобразованное число.
         """
-        return float(value)
+        return int(value)
