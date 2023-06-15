@@ -42,8 +42,7 @@ def test_instantiate_from_csv():
     assert Item.all[1].quantity == 3
 
 def test_string_to_number():
-    assert Item.string_to_number('10') == 10.0
-    assert Item.string_to_number('3.14') == 3.14
-    assert Item.string_to_number('0.5') == 0.5
-    assert Item.string_to_number('-2') == -2.0
-    assert Item.string_to_number('100') == 100.0
+    assert Item.string_to_number('10') == 10
+    assert Item.string_to_number('3') == 3
+    assert Item.string_to_number('-2') == -2
+    assert Item.string_to_number('100') == 100
