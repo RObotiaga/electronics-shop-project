@@ -45,14 +45,12 @@ def test_string_to_number():
     assert Item.string_to_number('10') == 10
     assert Item.string_to_number('3') == 3
     assert Item.string_to_number('-2') == -2
-<<<<<<<<< Temporary merge branch 1
     assert Item.string_to_number('100') == 100
-=========
-    assert Item.string_to_number('100') == 100
+    
 def test_repr():
     item1 = Item("Смартфон", 10000, 20)
     assert  repr(item1) == "Item('Смартфон', 10000, 20)"
+    
 def test_str():
     item1 = Item("Смартфон", 10000, 20)
     assert  str(item1) == 'Смартфон'
->>>>>>>>> Temporary merge branch 2
