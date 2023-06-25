@@ -1,4 +1,5 @@
 from src.item import Item
+from src.phone import Phone
 
 
 def test_init():
@@ -63,3 +64,9 @@ def test_str():
     item1 = Item("Смартфон", 10000, 20)
     assert str(item1) == 'Смартфон'
 
+
+def test_Item_addition():
+    item1 = Item("iPhone X", 999, 1)
+    item2 = Item("Samsung Galaxy S9", 799, 1)
+    item1 += item2
+    assert item1.quantity == 2
