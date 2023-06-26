@@ -40,15 +40,9 @@ class Item:
             raise ValueError("Длина наименования товара превышает 10 символов.")
 
     def __add__(self, other):
-        """
-        Реализует операцию сложения экземпляров классов Item и Phone.
-
-        :param other: Другой объект для сложения.
-        :return: Объект с обновленным количеством товара в магазине.
-        """
         if isinstance(other, Item):
             self.quantity += other.quantity
-            return self
+            return self.quantity
         else:
             raise TypeError("Можно сложить только экземпляры классов Item и Phone.")
     def calculate_total_price(self) -> float:

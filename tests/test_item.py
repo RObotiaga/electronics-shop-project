@@ -68,5 +68,5 @@ def test_str():
 def test_Item_addition():
     item1 = Item("iPhone X", 999, 1)
     item2 = Item("Samsung Galaxy S9", 799, 1)
-    item1 += item2
+    item1 + item2
     assert item1.quantity == 2
