@@ -46,6 +46,7 @@ class Item:
             return self.quantity
         else:
             raise TypeError("Можно сложить только экземпляры классов Item и Phone.")
+
     def calculate_total_price(self) -> float:
         """
         Рассчитывает общую стоимость конкретного товара в магазине.
@@ -66,13 +67,21 @@ class Item:
         Инициализирует экземпляры класса Item данными из файла src/items.csv.
         """
         Item.all = []
-        with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'items.csv'), 'r') as file:
-            reader = csv.DictReader(file)
-            for row in reader:
-                name = row['name']
-                price = float(row['price'])
-                quantity = int(row['quantity'])
-                cls(name, price, quantity)
+        file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'items.csv')
+        try:
+            with open(file_path, 'r') as file:
+                reader = csv.DictReader(file)
+                try:
+                    for row in reader:
+                        name = row['name']
+                        price = float(row['price'])
+                        quantity = int(row['quantity'])
+                        cls(name, price, quantity)
+                except TypeError or ValueError or KeyError:
+                    print('asd')
+                    raise InstantiateCSVError('Файл items.csv поврежден')
+        except FileNotFoundError:
+            raise FileNotFoundError("Отсутствует файл items.csv")
 
     @staticmethod
     def string_to_number(value):
@@ -83,3 +92,10 @@ class Item:
         :return: int Преобразованное число.
         """
         return int(value)
+
+
+class InstantiateCSVError(Exception):
+    """Общий класс исключения для csv"""
+    pass
+
+Item.instantiate_from_csv()
