@@ -1,6 +1,6 @@
 import pytest
 
-from src.keyboard import Keyboard, ChangeLang
+from src.keyboard import Keyboard, ChangeLangMixin
 
 
 @pytest.fixture
@@ -19,38 +19,31 @@ def test_keyboard_string_representation(keyboard):
 
 
 def test_change_language_initialization():
-    change_lang = ChangeLang()
+    change_lang = ChangeLangMixin()
     assert change_lang.language == 'EN'
 
 
-def test_change_language_setting_valid_value():
-    change_lang = ChangeLang()
-    change_lang.language = 'RU'
-    assert change_lang.language == 'RU'
-
-
 def test_change_language_setting_invalid_value():
-    change_lang = ChangeLang()
+    change_lang = ChangeLangMixin()
     with pytest.raises(AttributeError):
         change_lang.language = 'FR'
 
 
 def test_change_language_toggle_from_en_to_ru():
-    change_lang = ChangeLang()
-    change_lang.language = 'EN'
+    change_lang = ChangeLangMixin()
     change_lang.change_lang()
     assert change_lang.language == 'RU'
 
 
 def test_change_language_toggle_from_ru_to_en():
-    change_lang = ChangeLang()
-    change_lang.language = 'RU'
+    change_lang = ChangeLangMixin()
+    change_lang.change_lang()
+    assert change_lang.language == 'RU'
     change_lang.change_lang()
     assert change_lang.language == 'EN'
 
 
 def test_change_language_toggle_twice():
-    change_lang = ChangeLang()
-    change_lang.change_lang()
-    change_lang.change_lang()
+    change_lang = ChangeLangMixin()
+    change_lang.change_lang().change_lang()
     assert change_lang.language == 'EN'

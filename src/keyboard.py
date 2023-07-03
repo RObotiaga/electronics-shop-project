@@ -20,6 +20,7 @@ class ChangeLangMixin:
 class Keyboard(Item, ChangeLangMixin):
     def __init__(self, name, price, quantity):
         super().__init__(name, price, quantity)
+        self._language = 'EN'  # Защищенное поле
 
     def __str__(self):
         return self.name

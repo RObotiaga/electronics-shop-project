@@ -1,4 +1,6 @@
-from src.item import Item
+import os
+import pytest
+from src.item import Item, InstantiateCSVError
 
 
 def test_init():
@@ -69,3 +71,28 @@ def test_Item_addition():
     item2 = Item("Samsung Galaxy S9", 799, 1)
     item1 + item2
     assert item1.quantity == 2
+
+
+def test_instantiate_from_csv_missing_file():
+    Item.all = []
+    with open('../src/items.csv', 'r') as file:
+        file_content = file.read()
+    os.remove('../src/items.csv')
+    with pytest.raises(FileNotFoundError, match='Отсутствует файл items.csv'):
+        Item.instantiate_from_csv()
+    with open('../src/items.csv', 'w') as file:
+        file.write(file_content)
+
+
+def test_instantiate_from_csv_corrupted_file():
+    file_path = '../src/items.csv'
+    with open(file_path, 'r') as file:
+        file_content = file.read()
+    os.remove(file_path)
+    with open(file_path, 'w') as file:
+        file.write(file_content[:59:])
+    with pytest.raises(InstantiateCSVError):
+        Item.instantiate_from_csv()
+    print(file_content)
+    with open(file_path, 'w') as file:
+        file.write(file_content)
